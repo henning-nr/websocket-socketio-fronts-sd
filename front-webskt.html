@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WebSocket Chat</title>
+</head>
+
+<body>
+  <input type="text" id="messageInput">
+  <button onclick="sendMessage()">Enviar</button>
+  <ul id="messages"></ul>
+  <script>
+    const ws = new WebSocket('wss://276119f8-5172-4c98-8fba-bee7a25afced-00-2i1f745qgat7u.kirk.replit.dev:3000/');
+    ws.addEventListener('message', function (event) {
+      event.data.text().then(data => addMessage(data))
+    })
+    function addMessage(message) {
+      const messages = document.getElementById('messages');
+      messages.innerHTML += `<li>${message}</li>`;
+    }
+    function sendMessage() {
+      const input = document.getElementById('messageInput');
+      message = input.value
+      ws.send(message);
+      input.value = '';
+    }
+    
+    function checkMessage(message){
+      if(message.includes("dog run")){
+        let midia = new Audio('dog-run.mp3')
+        midia.play()
+      }
+    }
+    
+  </script>
+</body>
+
+</html>
